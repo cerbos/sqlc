@@ -213,15 +213,16 @@ func outputColumns(qc *QueryCatalog, node ast.Node) ([]*Column, error) {
 							cname = *res.Name
 						}
 						cols = append(cols, &Column{
-							Name:       cname,
-							Type:       c.Type,
-							Scope:      scope,
-							Table:      c.Table,
-							TableAlias: t.Rel.Name,
-							DataType:   c.DataType,
-							NotNull:    c.NotNull,
-							IsArray:    c.IsArray,
-							Length:     c.Length,
+							Name:         cname,
+							OriginalName: c.Name,
+							Type:         c.Type,
+							Scope:        scope,
+							Table:        c.Table,
+							TableAlias:   t.Rel.Name,
+							DataType:     c.DataType,
+							NotNull:      c.NotNull,
+							IsArray:      c.IsArray,
+							Length:       c.Length,
 						})
 					}
 				}
@@ -511,15 +512,17 @@ func outputColumnRefs(res *ast.ResTarget, tables []*Table, node *ast.ColumnRef) 
 				if res.Name != nil {
 					cname = *res.Name
 				}
+
 				cols = append(cols, &Column{
-					Name:       cname,
-					Type:       c.Type,
-					Table:      c.Table,
-					TableAlias: alias,
-					DataType:   c.DataType,
-					NotNull:    c.NotNull,
-					IsArray:    c.IsArray,
-					Length:     c.Length,
+					Name:         cname,
+					OriginalName: c.Name,
+					Type:         c.Type,
+					Table:        c.Table,
+					TableAlias:   alias,
+					DataType:     c.DataType,
+					NotNull:      c.NotNull,
+					IsArray:      c.IsArray,
+					Length:       c.Length,
 				})
 			}
 		}
