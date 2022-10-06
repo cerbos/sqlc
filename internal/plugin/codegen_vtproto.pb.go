@@ -447,6 +447,9 @@ func (this *Column) EqualVT(that *Column) bool {
 	if !this.Type.EqualVT(that.Type) {
 		return false
 	}
+	if this.OriginalName != that.OriginalName {
+		return false
+	}
 	return string(this.unknownFields) == string(that.unknownFields)
 }
 
@@ -1654,6 +1657,13 @@ func (m *Column) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if len(m.OriginalName) > 0 {
+		i -= len(m.OriginalName)
+		copy(dAtA[i:], m.OriginalName)
+		i = encodeVarint(dAtA, i, uint64(len(m.OriginalName)))
+		i--
+		dAtA[i] = 0x6a
+	}
 	if m.Type != nil {
 		size, err := m.Type.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
@@ -2533,6 +2543,10 @@ func (m *Column) SizeVT() (n int) {
 	}
 	if m.Type != nil {
 		l = m.Type.SizeVT()
+		n += 1 + l + sov(uint64(l))
+	}
+	l = len(m.OriginalName)
+	if l > 0 {
 		n += 1 + l + sov(uint64(l))
 	}
 	if m.unknownFields != nil {
@@ -5980,6 +5994,38 @@ func (m *Column) UnmarshalVT(dAtA []byte) error {
 			if err := m.Type.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OriginalName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OriginalName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
