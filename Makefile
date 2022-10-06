@@ -39,7 +39,7 @@ mysqlsh:
 	mysqlsh --sql --user root --password mysecretpassword --database dinotest 127.0.0.1:3306
 
 # $ protoc --version
-# libprotoc 3.19.1
+# libprotoc 3.21.7
 # $ go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 # $ go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@latest
 proto: internal/plugin/codegen.pb.go internal/python/ast/ast.pb.go
