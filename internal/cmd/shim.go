@@ -266,7 +266,6 @@ func pluginQueryColumn(c *compiler.Column) *plugin.Column {
 	}
 	out := &plugin.Column{
 		Name:         c.Name,
-		OriginalName: c.OriginalName,
 		Comment:      c.Comment,
 		NotNull:      c.NotNull,
 		IsArray:      c.IsArray,
