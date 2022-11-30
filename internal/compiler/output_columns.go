@@ -128,7 +128,7 @@ func outputColumns(qc *QueryCatalog, node ast.Node) ([]*Column, error) {
 				if ok && sublink.SubLinkType == ast.EXISTS_SUBLINK {
 					notNull = true
 					if name == "" {
-						name = "notExists"
+						name = "not_exists"
 					}
 				}
 			}

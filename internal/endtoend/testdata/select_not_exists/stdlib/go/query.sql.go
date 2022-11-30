@@ -23,7 +23,7 @@ SELECT
 
 func (q *Queries) BarNotExists(ctx context.Context, id int32) (bool, error) {
 	row := q.db.QueryRowContext(ctx, barNotExists, id)
-	var notExists bool
-	err := row.Scan(&notExists)
-	return notExists, err
+	var not_exists bool
+	err := row.Scan(&not_exists)
+	return not_exists, err
 }
